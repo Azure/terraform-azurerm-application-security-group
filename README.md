@@ -1,3 +1,25 @@
+# Usage
+-----
+
+The module accepts a list of ingress/egress rules that are used to create network security group rules referencing source addresses or application security groups.  
+
+```hcl
+module "application_security_group" {
+  source = "git::ssh:git@github.com:Azure/terraform-azurerm-application-security-group.git"
+  name                          = "web-service"
+  location                      = "centralus"
+  resource_group_name           = "myresourcegroup"
+  network_security_group_name   = "mynetworksecuritygroup"
+  ingress_with_cidr_blocks      = [{
+      source_port_range       = 8080
+      destination_port_range  = 8090
+      protocol                = "Tcp"
+      description             = "Web-service ports"
+      source_address_prefixes = "10.10.0.0/16"
+    }]
+}
+```
+
 
 # Contributing
 
