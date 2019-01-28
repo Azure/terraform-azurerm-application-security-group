@@ -29,7 +29,7 @@ resource "azurerm_network_security_rule" "ingress_with_cidr_blocks" {
   priority                                    = "${format("%03d", count.index+var.priority_offset+local.ingress_with_cidr_blocks_offset)}"
   direction                                   = "Inbound"
   access                                      = "Allow"
-  protocol                                    = "${lookup(var.ingress_with_cidr_blocks[count.index], "protocol")}"
+  protocol                                    = "${lookup(var.ingress_with_cidr_blocks[count.index], "protocol", "Tcp")}"
   source_port_range                           = "${lookup(var.ingress_with_cidr_blocks[count.index], "source_port_range")}"
   destination_port_range                      = "${lookup(var.ingress_with_cidr_blocks[count.index], "destination_port_range")}"
   source_address_prefixes                     = ["${split(",", lookup(var.ingress_with_cidr_blocks[count.index], "source_address_prefixes", join(",", var.ingress_cidr_blocks)))}"]
@@ -46,7 +46,7 @@ resource "azurerm_network_security_rule" "egress_with_cidr_blocks" {
   priority                                    = "${format("%03d", count.index+var.priority_offset+local.egress_with_cidr_blocks_offset)}"
   direction                                   = "Outbound"
   access                                      = "Allow"
-  protocol                                    = "${lookup(var.egress_with_cidr_blocks[count.index], "protocol")}"
+  protocol                                    = "${lookup(var.egress_with_cidr_blocks[count.index], "protocol", "Tcp")}"
   source_port_range                           = "${lookup(var.egress_with_cidr_blocks[count.index], "source_port_range")}"
   destination_port_range                      = "${lookup(var.egress_with_cidr_blocks[count.index], "destination_port_range")}"
   destination_address_prefixes                = ["${split(",", lookup(var.egress_with_cidr_blocks[count.index], join(",","destination_address_prefixes"), join(",", var.egress_cidr_blocks)))}"]
@@ -63,7 +63,7 @@ resource "azurerm_network_security_rule" "ingress_with_asg_ids" {
   priority                                    = "${format("%03d", count.index+var.priority_offset+local.ingress_with_asg_ids_offset)}"
   direction                                   = "Inbound"
   access                                      = "Allow"
-  protocol                                    = "${lookup(var.ingress_with_asg_ids[count.index], "protocol")}"
+  protocol                                    = "${lookup(var.ingress_with_asg_ids[count.index], "protocol", "Tcp")}"
   source_port_range                           = "${lookup(var.ingress_with_asg_ids[count.index], "source_port_range")}"
   destination_port_range                      = "${lookup(var.ingress_with_asg_ids[count.index], "destination_port_range")}"
   source_application_security_group_ids       = ["${split(",", lookup(var.ingress_with_asg_ids[count.index], "source_application_security_group_ids", join(",", var.ingress_with_asg_ids)))}"]
@@ -80,7 +80,7 @@ resource "azurerm_network_security_rule" "egress_with_asg_ids" {
   priority                                    = "${format("%03d", count.index+var.priority_offset+local.egress_with_asg_ids_offset)}"
   direction                                   = "Outbound"
   access                                      = "Allow"
-  protocol                                    = "${lookup(var.egress_with_asg_ids[count.index], "protocol")}"
+  protocol                                    = "${lookup(var.egress_with_asg_ids[count.index], "protocol", "Tcp")}"
   source_port_range                           = "${lookup(var.egress_with_asg_ids[count.index], "source_port_range")}"
   destination_port_range                      = "${lookup(var.egress_with_asg_ids[count.index], "destination_port_range")}"
   destination_application_security_group_ids  = ["${split(",", lookup(var.egress_with_asg_ids[count.index], "destination_application_security_group_ids", join(",", var.egress_with_asg_ids)))}"]
