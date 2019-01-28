@@ -57,7 +57,7 @@ variable "egress_with_cidr_blocks" {
 
 variable "egress_cidr_blocks" {
   description = "List of IPv4 CIDR ranges to use on all egress rules"
-  default     = ["0.0.0.0/0"]
+  default     = []
 }
 
 # ingress_with_cidr_blocks = [
